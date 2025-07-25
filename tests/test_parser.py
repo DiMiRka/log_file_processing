@@ -1,7 +1,7 @@
 import tempfile
 import pytest
 import os
-from parser import parse_log_files
+from log_files_parser import parse_log_files
 
 
 @pytest.fixture
