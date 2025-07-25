@@ -21,14 +21,12 @@ def log_file():
 
 
 def test_parse_valid_json(log_file):
-    """Тестируем валидный json"""
     result = parse_log_files([log_file])
     assert len(result) == 3
     assert all("url" in entry and "response_time" in entry for entry in result)
 
 
 def test_parse_empty_file():
-    """Тестируем пустой файл"""
     tmp = tempfile.NamedTemporaryFile(delete=False, mode="w", encoding="utf-8")
     tmp.close()
     try:
