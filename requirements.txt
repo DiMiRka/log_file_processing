@@ -1,2 +1,4 @@
 tabulate
 pytest
+flake8
+black
