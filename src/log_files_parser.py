@@ -10,7 +10,9 @@ def parse_log_files(files: List[str], date_filter: str = None) -> List[Dict]:
         try:
             date_log_filter = datetime.strptime(date_filter, "%Y-%m-%d").date()
         except ValueError:
-            raise ValueError(f"Не верный формат даты: {date_filter}. Верный YYYY-MM-DD.")
+            raise ValueError(
+                f"Не верный формат даты: {date_filter}. Верный YYYY-MM-DD."
+            )
     else:
         date_log_filter = None
 
@@ -24,7 +26,9 @@ def parse_log_files(files: List[str], date_filter: str = None) -> List[Dict]:
                         if not ts:
                             continue
                         try:
-                            date_log = datetime.fromisoformat(ts.replace("Z", "+00:00")).date()
+                            date_log = datetime.fromisoformat(
+                                ts.replace("Z", "+00:00")
+                            ).date()
                         except ValueError:
                             continue
                         if str(date_log) != date_filter:

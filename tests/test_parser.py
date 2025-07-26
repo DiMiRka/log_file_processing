@@ -43,7 +43,7 @@ def test_parse_empty_file():
         ("2025-06-24", []),
         ("2099-01-01", []),
         (None, ["/test/1", "/test/2", "/test/3"]),
-    ]
+    ],
 )
 def test_parse_date_filter(log_file, date_filter, expected_urls):
     result = parse_log_files([log_file], date_filter=date_filter)
