@@ -12,8 +12,10 @@ def main():
     parser.add_argument(
         "--report", required=True, choices=["average"], help="Тип отчета"
     )
+    parser.add_argument("--date", help="Фильтр по дате лога (YYYY-MM-DD)")
     args = parser.parse_args()
-    entries = parse_log_files(args.file)
+
+    entries = parse_log_files(args.file, args.date)
 
     if args.report == "average":
         report = AverageReport()
