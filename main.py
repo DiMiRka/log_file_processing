@@ -1,9 +1,9 @@
 import argparse
 from tabulate import tabulate
 
-from log_files_parser import parse_log_files
-from report import AverageReport
-from exceptions import InvalidReportTypeError
+from src.log_files_parser import parse_log_files
+from src.report import AverageReport
+from src.exceptions import InvalidReportTypeError
 
 
 def main():
