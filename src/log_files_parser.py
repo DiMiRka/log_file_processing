@@ -27,7 +27,8 @@ def parse_log_files(files: List[str], date_filter: str = None) -> List[Dict]:
                             ts = log_line.get("@timestamp")
                             if not ts:
                                 logger.warning(
-                                    f"Пропущена строка {idx} в {file}: отсутствует '@timestamp'"
+                                    f"Пропущена строка {idx} в {file}: "
+                                    f"отсутствует '@timestamp'"
                                 )
                                 skipped += 1
                                 continue
@@ -37,7 +38,8 @@ def parse_log_files(files: List[str], date_filter: str = None) -> List[Dict]:
                                 ).date()
                             except ValueError:
                                 logger.warning(
-                                    f"Пропущена строка {idx} в {file}: некорректный формат времени '@timestamp': {ts}"
+                                    f"Пропущена строка {idx} в {file}: "
+                                    f"некорректный формат времени '@timestamp': {ts}"
                                 )
                                 skipped += 1
                                 continue
