@@ -1,4 +1,5 @@
 [tool.black]
+line-length = 94
 
 [tool.pytest.ini_options]
 minversion = "8.0"

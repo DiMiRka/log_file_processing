@@ -35,10 +35,7 @@ class AverageReport(Report):
         )
 
         return sorted(
-            [
-                (url, d["count"], d["total_time"] / d["count"])
-                for url, d in stats.items()
-            ],
+            [(url, d["count"], d["total_time"] / d["count"]) for url, d in stats.items()],
             key=lambda x: x[1],
             reverse=True,
         )

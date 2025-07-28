@@ -12,9 +12,7 @@ def parse_log_files(files: List[str], date_filter: str = None) -> List[Dict]:
         try:
             date_log_filter = datetime.strptime(date_filter, "%Y-%m-%d").date()
         except ValueError:
-            raise ValueError(
-                f"Не верный формат даты: {date_filter}. Верный YYYY-MM-DD."
-            )
+            raise ValueError(f"Не верный формат даты: {date_filter}. Верный YYYY-MM-DD.")
     else:
         date_log_filter = None
 
@@ -47,9 +45,7 @@ def parse_log_files(files: List[str], date_filter: str = None) -> List[Dict]:
                                 continue
                         result.append(log_line)
                     except json.JSONDecodeError as e:
-                        logger.warning(
-                            f"Невалидный JSON в файле {file}, строка {idx}: {e}"
-                        )
+                        logger.warning(f"Невалидный JSON в файле {file}, строка {idx}: {e}")
                         skipped += 1
                         continue
         except FileNotFoundError:

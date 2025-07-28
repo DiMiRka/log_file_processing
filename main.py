@@ -9,9 +9,7 @@ from src.exceptions import InvalidReportTypeError
 def main():
     parser = argparse.ArgumentParser(description="Обработка лог файлов")
     parser.add_argument("--file", nargs="+", required=True, help="Путь к файлу/файлам")
-    parser.add_argument(
-        "--report", required=True, choices=["average"], help="Тип отчета"
-    )
+    parser.add_argument("--report", required=True, choices=["average"], help="Тип отчета")
     parser.add_argument("--date", help="Фильтр по дате лога (YYYY-MM-DD)")
     args = parser.parse_args()
 
