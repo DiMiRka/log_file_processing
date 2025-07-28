@@ -7,6 +7,7 @@ from src.logger import logger
 
 def parse_log_files(files: List[str], date_filter: str = None) -> List[Dict]:
     result = []
+    skipped = 0
 
     if date_filter:
         try:
@@ -17,10 +18,12 @@ def parse_log_files(files: List[str], date_filter: str = None) -> List[Dict]:
         date_log_filter = None
 
     for idx, file in enumerate(files):
-        skipped = 0
+        skip = 0
+        count = 0
         try:
             with open(file, encoding="utf-8") as f:
                 for line in f:
+                    count += 1
                     try:
                         log_line = json.loads(line)
                         if date_log_filter:
@@ -30,7 +33,7 @@ def parse_log_files(files: List[str], date_filter: str = None) -> List[Dict]:
                                     f"Пропущена строка {idx} в {file}: "
                                     f"отсутствует '@timestamp'"
                                 )
-                                skipped += 1
+                                skip += 1
                                 continue
                             try:
                                 date_log = datetime.fromisoformat(
@@ -41,20 +44,23 @@ def parse_log_files(files: List[str], date_filter: str = None) -> List[Dict]:
                                     f"Пропущена строка {idx} в {file}: "
                                     f"некорректный формат времени '@timestamp': {ts}"
                                 )
-                                skipped += 1
+                                skip += 1
                                 continue
                             if str(date_log) != date_filter:
                                 continue
                         result.append(log_line)
                     except json.JSONDecodeError as e:
                         logger.warning(f"Невалидный JSON в файле {file}, строка {idx}: {e}")
-                        skipped += 1
+                        skip += 1
                         continue
         except FileNotFoundError:
             logger.error(f"Файл не найден: {file}")
         except Exception as e:
             logger.exception(f"Ошибка при обработке файла {file}: {e}")
 
-        logger.info(f"parser.py Обработано {len(result)} записей, пропущено: {skipped}")
+        skipped += skip
+        logger.info(f"parser.py файл {file}. Обработано {count} записей, пропущено: {skip}")
+
+    logger.info(f"parser.py Обработано {len(result)} записей, пропущено: {skipped}")
 
     return result
